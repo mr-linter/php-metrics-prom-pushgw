@@ -73,10 +73,10 @@ class MetricsRenderer
         $content[] = "# TYPE {$snapshot->subject->key} Histogram";
         $content[] = "\n";
 
-        foreach ($snapshot->histograms as $key => $gram) {
+        foreach ($snapshot->histograms as $gram) {
             $labelsString = $this->collectLabels($gram->labels(), $globalLabels);
 
-            $bucketKey = $key . '_bucket';
+            $bucketKey = $gram->key() . '_bucket';
 
             foreach ($gram->frequencies() as $bucket => $bucketCount) {
                 $content[] = sprintf('%s{le="%d",%s} %d', $bucketKey, $bucket, $labelsString, $bucketCount);
@@ -91,8 +91,8 @@ class MetricsRenderer
             }
 
             $content[] = sprintf('%s{le="+Inf",%s} %d', $bucketKey, $labelsString, $count);
-            $content[] = sprintf('%s_sum{%s} %d', $key, $labelsString, $sum);
-            $content[] = sprintf('%s_count{%s} %d', $key, $labelsString, $count);
+            $content[] = sprintf('%s_sum{%s} %d', $snapshot->subject->key, $labelsString, $sum);
+            $content[] = sprintf('%s_count{%s} %d', $snapshot->subject->key, $labelsString, $count);
 
             $content[] = "\n";
         }

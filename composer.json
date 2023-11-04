@@ -21,7 +21,7 @@
     ],
     "require": {
         "php": "^8.2",
-        "mr-linter/metrics-contracts": "^0.13.1",
+        "mr-linter/metrics-contracts": "^0.14.0",
         "psr/http-client": "^1.0",
         "guzzlehttp/psr7": "^2.6"
     },
